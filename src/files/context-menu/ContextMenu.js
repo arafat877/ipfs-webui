@@ -44,8 +44,7 @@ class ContextMenu extends React.Component {
   render () {
     const {
       t, onRename, onRemove, onDownload, onInspect, onShare,
-      translateX, translateY, className,
-      isDirectory, isMfs, isUnknown, pinned, isCliTutorModeEnabled
+      translateX, translateY, className, isMfs, isUnknown, isCliTutorModeEnabled
     } = this.props
     return (
       <Dropdown className={className}>
@@ -58,7 +57,7 @@ class ContextMenu extends React.Component {
           translateY={-translateY}
           open={this.props.isOpen}
           onDismiss={this.props.handleClick}>
-          { !isDirectory && onShare &&
+          { onShare &&
             <Option onClick={this.wrap('onShare')}>
               <StrokeShare className='w2 mr2 fill-aqua' />
               {t('actions.share')}
@@ -76,29 +75,28 @@ class ContextMenu extends React.Component {
               {t('app:actions.inspect')}
             </Option>
           }
-          <Option onClick={this.wrap(pinned ? 'onUnpin' : 'onPin')} isCliTutorModeEnabled={isCliTutorModeEnabled}
+          <Option onClick={this.wrap('onPinning')} isCliTutorModeEnabled={isCliTutorModeEnabled}
             onCliTutorMode={this.wrap('onCliTutorMode', cliCmdKeys.PIN_OBJECT)}>
             <StrokePin className='w2 mr2 fill-aqua' />
-            { pinned ? t('app:actions.unpin') : t('app:actions.pinVerb') }
+            { t('app:actions.setPinning') }
           </Option>
-          { !isDirectory && !isUnknown && onDownload &&
+          { !isUnknown && onDownload &&
             <Option onClick={this.wrap('onDownload')} isCliTutorModeEnabled={isCliTutorModeEnabled}
               onCliTutorMode={this.wrap('onCliTutorMode', cliCmdKeys.DOWNLOAD_OBJECT_COMMAND)}>
               <StrokeDownload className='w2 mr2 fill-aqua' />
               {t('app:actions.download')}
             </Option>
           }
-          { !isDirectory && !isUnknown && isMfs && onRename &&
+          { !isUnknown && isMfs && onRename &&
             <Option onClick={this.wrap('onRename')} isCliTutorModeEnabled={isCliTutorModeEnabled}
               onCliTutorMode={this.wrap('onCliTutorMode', cliCmdKeys.RENAME_IPFS_OBJECT)}>
               <StrokePencil className='w2 mr2 fill-aqua' />
               {t('app:actions.rename')}
             </Option>
           }
-          { !isDirectory && !isUnknown && isMfs && onRemove &&
+          { !isUnknown && isMfs && onRemove &&
             <Option onClick={this.wrap('onRemove')} isCliTutorModeEnabled={isCliTutorModeEnabled}
-              onCliTutorMode={this.wrap('onCliTutorMode', cliCmdKeys.REMOVE_FILE_FROM_IPFS)}
-            >
+              onCliTutorMode={this.wrap('onCliTutorMode', cliCmdKeys.REMOVE_FILE_FROM_IPFS)}            >
               <StrokeTrash className='w2 mr2 fill-aqua' />
               {t('app:actions.remove')}
             </Option>
@@ -114,7 +112,6 @@ ContextMenu.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   isUnknown: PropTypes.bool.isRequired,
   hash: PropTypes.string,
-  isDirectory: PropTypes.bool,
   pinned: PropTypes.bool,
   handleClick: PropTypes.func,
   translateX: PropTypes.number.isRequired,
@@ -134,7 +131,6 @@ ContextMenu.propTypes = {
 ContextMenu.defaultProps = {
   isMfs: false,
   isOpen: false,
-  isDirectory: false,
   isUnknown: false,
   top: 0,
   left: 0,

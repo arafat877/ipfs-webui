@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 import i18nDecorator from '../../i18n-decorator'
 import DndDecorator from '../../dnd-decorator'
-import { FilesListWithDropTarget as FilesList } from './FilesList'
+import FilesList from './FilesList'
 // Fixtures
 import filesListA from './fixtures/list-with-10-files.json'
 import filesListC from './fixtures/list-with-100-files.json'
@@ -19,6 +19,7 @@ storiesOf('Files/Files List', module)
     <div className='h-100'>
       <FilesList
         root='/'
+        filesPathInfo={{ isMfs: true }}
         pins={[]}
         files={filesListA}
         filesIsFetching={boolean('filesIsFetching', false)}
@@ -37,6 +38,7 @@ storiesOf('Files/Files List', module)
     <div className='h-100'>
       <FilesList
         root='/'
+        filesPathInfo={{ isMfs: true }}
         pins={[]}
         files={filesListC}
         filesIsFetching={boolean('filesIsFetching', false)}
@@ -55,6 +57,7 @@ storiesOf('Files/Files List', module)
     <div className='h-100'>
       <FilesList
         root='/'
+        filesPathInfo={{ isMfs: true }}
         pins={[]}
         files={filesListE}
         filesIsFetching={boolean('filesIsFetching', false)}
@@ -73,6 +76,7 @@ storiesOf('Files/Files List', module)
     <div className='h-100'>
       <FilesList
         root='/'
+        filesPathInfo={{ isMfs: true }}
         pins={[]}
         files={filesListF}
         filesIsFetching={boolean('filesIsFetching', false)}
